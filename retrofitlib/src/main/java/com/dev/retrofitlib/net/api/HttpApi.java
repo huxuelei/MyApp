@@ -54,7 +54,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
- * @Description: 网络操作入口
+ * 网络操作入口
  */
 public class HttpApi {
     private static Context context;
@@ -72,10 +72,6 @@ public class HttpApi {
 
     /**
      * 可传入自定义的接口服务
-     *
-     * @param service
-     * @param <T>
-     * @return
      */
     public <T> T create(final Class<T> service) {
         return retrofit.create(service);
@@ -83,10 +79,6 @@ public class HttpApi {
 
     /**
      * 由外部设置被观察者
-     *
-     * @param observable
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> call(Observable<T> observable) {
         return observable.compose(new Observable.Transformer<T, T>() {
@@ -100,12 +92,6 @@ public class HttpApi {
 
     /**
      * 普通Get方式请求，需传入实体类
-     *
-     * @param url
-     * @param maps
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> get(String url, Map<String, String> maps, Class<T> clazz) {
         return apiService.get(url, maps).compose(this.norTransformer(clazz));
@@ -113,12 +99,6 @@ public class HttpApi {
 
     /**
      * 普通Get方式请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param maps
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription get(String url, Map<String, String> maps, ApiCallback<T> callback) {
         return this.get(url, maps, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -126,12 +106,6 @@ public class HttpApi {
 
     /**
      * 带缓存Get方式请求，请求前需配置缓存key，缓存时间默认永久，还可以配置缓存策略，需传入实体类
-     *
-     * @param url
-     * @param maps
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<CacheResult<T>> cacheGet(final String url, final Map<String, String> maps, Class<T> clazz) {
         return this.get(url, maps, clazz).compose(apiCache.transformer(cacheMode, clazz));
@@ -139,12 +113,6 @@ public class HttpApi {
 
     /**
      * 带缓存Get方式请求，请求前需配置缓存key，缓存时间默认永久，还可以配置缓存策略，无需订阅，只需配置Callback回调
-     *
-     * @param url
-     * @param maps
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription cacheGet(String url, Map<String, String> maps, ApiCallback<T> callback) {
         return this.cacheGet(url, maps, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -152,12 +120,6 @@ public class HttpApi {
 
     /**
      * 普通POST方式请求，需传入实体类
-     *
-     * @param url
-     * @param parameters
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> post(final String url, final Map<String, String> parameters, Class<T> clazz) {
         return apiService.post(url, parameters).compose(this.norTransformer(clazz));
@@ -165,12 +127,6 @@ public class HttpApi {
 
     /**
      * 普通POST方式请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param maps
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription post(String url, Map<String, String> maps, ApiCallback<T> callback) {
         return this.post(url, maps, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -178,12 +134,6 @@ public class HttpApi {
 
     /**
      * 带缓存POST方式请求，请求前需配置缓存key，缓存时间默认永久，还可以配置缓存策略，需传入实体类
-     *
-     * @param url
-     * @param maps
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<CacheResult<T>> cachePost(final String url, final Map<String, String> maps, Class<T> clazz) {
         return this.post(url, maps, clazz).compose(apiCache.transformer(cacheMode, clazz));
@@ -191,12 +141,6 @@ public class HttpApi {
 
     /**
      * 带缓存POST方式请求，请求前需配置缓存key，缓存时间默认永久，还可以配置缓存策略，无需订阅，只需配置Callback回调
-     *
-     * @param url
-     * @param maps
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription cachePost(String url, Map<String, String> maps, ApiCallback<T> callback) {
         return this.cachePost(url, maps, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -204,12 +148,6 @@ public class HttpApi {
 
     /**
      * 提交表单方式请求，需传入实体类
-     *
-     * @param url
-     * @param fields
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> form(final String url, final @FieldMap(encoded = true) Map<String, Object> fields, Class<T> clazz) {
         return apiService.postForm(url, fields).compose(this.norTransformer(clazz));
@@ -217,12 +155,6 @@ public class HttpApi {
 
     /**
      * 提交表单方式请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param fields
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription form(final String url, final @FieldMap(encoded = true) Map<String, Object> fields, ApiCallback<T> callback) {
         return this.form(url, fields, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -230,12 +162,6 @@ public class HttpApi {
 
     /**
      * 提交Body方式请求，需传入实体类
-     *
-     * @param url
-     * @param body
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> body(final String url, final Object body, Class<T> clazz) {
         return apiService.postBody(url, body).compose(this.norTransformer(clazz));
@@ -243,12 +169,6 @@ public class HttpApi {
 
     /**
      * 提交Body方式请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param body
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription body(final String url, final Object body, ApiCallback<T> callback) {
         return this.body(url, body, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -256,12 +176,6 @@ public class HttpApi {
 
     /**
      * 删除信息请求，需传入实体类
-     *
-     * @param url
-     * @param maps
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> delete(final String url, final Map<String, String> maps, Class<T> clazz) {
         return apiService.delete(url, maps).compose(this.norTransformer(clazz));
@@ -269,12 +183,6 @@ public class HttpApi {
 
     /**
      * 删除信息请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param maps
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription delete(String url, Map<String, String> maps, ApiCallback<T> callback) {
         return this.delete(url, maps, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -282,12 +190,6 @@ public class HttpApi {
 
     /**
      * 修改信息请求，需传入实体类
-     *
-     * @param url
-     * @param maps
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> put(final String url, final Map<String, String> maps, Class<T> clazz) {
         return apiService.put(url, maps).compose(this.norTransformer(clazz));
@@ -295,12 +197,6 @@ public class HttpApi {
 
     /**
      * 修改信息请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param maps
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription put(String url, Map<String, String> maps, ApiCallback<T> callback) {
         return this.put(url, maps, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -308,12 +204,6 @@ public class HttpApi {
 
     /**
      * 上传图片，需传入请求body和实体类
-     *
-     * @param url
-     * @param requestBody
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> uploadImage(String url, RequestBody requestBody, Class<T> clazz) {
         return apiService.uploadImage(url, requestBody).compose(this.norTransformer(clazz));
@@ -321,12 +211,6 @@ public class HttpApi {
 
     /**
      * 上传图片，需传入图片文件和实体类
-     *
-     * @param url
-     * @param file
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> uploadImage(String url, File file, Class<T> clazz) {
         return apiService.uploadImage(url, RequestBody.create(okhttp3.MediaType.parse("image/jpg; " + "charset=utf-8"), file)).compose
@@ -335,13 +219,6 @@ public class HttpApi {
 
     /**
      * 上传文件
-     *
-     * @param url
-     * @param requestBody
-     * @param file
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> uploadFile(String url, RequestBody requestBody, MultipartBody.Part file, Class<T> clazz) {
         return apiService.uploadFile(url, requestBody, file).compose(this.norTransformer(clazz));
@@ -349,12 +226,6 @@ public class HttpApi {
 
     /**
      * 上传多文件
-     *
-     * @param url
-     * @param files
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> uploadFlies(String url, Map<String, RequestBody> files, Class<T> clazz) {
         return apiService.uploadFiles(url, files).compose(this.norTransformer(clazz));
@@ -364,10 +235,6 @@ public class HttpApi {
 
     /**
      * 由外部设置被观察者
-     *
-     * @param observable
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> apiCall(Observable<T> observable) {
         return observable.map(new Func1<T, T>() {
@@ -393,12 +260,6 @@ public class HttpApi {
 
     /**
      * 返回ApiResult<T>的Get方式请求，需传入实体类
-     *
-     * @param url
-     * @param maps
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> apiGet(final String url, final Map<String, String> maps, Class<T> clazz) {
         return apiService.get(url, maps).map(new ApiResultFunc<T>(clazz)).compose(this.<T>apiTransformer());
@@ -406,12 +267,6 @@ public class HttpApi {
 
     /**
      * 返回ApiResult<T>的Get方式请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param maps
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription apiGet(final String url, final Map<String, String> maps, ApiCallback<T> callback) {
         return this.apiGet(url, maps, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -419,12 +274,6 @@ public class HttpApi {
 
     /**
      * 返回ApiResult<T>并带缓存的Get方式请求，需传入实体类
-     *
-     * @param url
-     * @param maps
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<CacheResult<T>> apiCacheGet(final String url, final Map<String, String> maps, Class<T> clazz) {
         return this.apiGet(url, maps, clazz).compose(apiCache.transformer(cacheMode, clazz));
@@ -432,12 +281,6 @@ public class HttpApi {
 
     /**
      * 返回ApiResult<T>并带缓存的Get方式请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param maps
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription apiCacheGet(final String url, final Map<String, String> maps, ApiCallback<T> callback) {
         return this.apiCacheGet(url, maps, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -445,12 +288,6 @@ public class HttpApi {
 
     /**
      * 返回ApiResult<T>的POST方式请求，需传入实体类
-     *
-     * @param url
-     * @param parameters
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<T> apiPost(final String url, final Map<String, String> parameters, Class<T> clazz) {
         return apiService.post(url, parameters).map(new ApiResultFunc<T>(clazz)).compose(this.<T>apiTransformer());
@@ -458,12 +295,6 @@ public class HttpApi {
 
     /**
      * 返回ApiResult<T>的POST方式请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param parameters
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription apiPost(final String url, final Map<String, String> parameters, ApiCallback<T> callback) {
         return this.apiPost(url, parameters, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -471,12 +302,6 @@ public class HttpApi {
 
     /**
      * 返回ApiResult<T>并带缓存的POST方式请求，需传入实体类
-     *
-     * @param url
-     * @param parameters
-     * @param clazz
-     * @param <T>
-     * @return
      */
     public <T> Observable<CacheResult<T>> apiCachePost(final String url, final Map<String, String> parameters, Class<T> clazz) {
         return this.apiPost(url, parameters, clazz).compose(apiCache.transformer(cacheMode, clazz));
@@ -484,12 +309,6 @@ public class HttpApi {
 
     /**
      * 返回ApiResult<T>并带缓存的POST方式请求，无需订阅，只需传入Callback回调
-     *
-     * @param url
-     * @param parameters
-     * @param callback
-     * @param <T>
-     * @return
      */
     public <T> Subscription apiCachePost(final String url, final Map<String, String> parameters, ApiCallback<T> callback) {
         return this.apiCachePost(url, parameters, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
@@ -497,8 +316,6 @@ public class HttpApi {
 
     /**
      * 清楚所有缓存
-     *
-     * @return
      */
     public Subscription clearCache() {
         return apiCache.clear();
@@ -506,8 +323,6 @@ public class HttpApi {
 
     /**
      * 清除对应Key的缓存
-     *
-     * @param key
      */
     public void removeCache(String key) {
         apiCache.remove(key);
@@ -515,9 +330,6 @@ public class HttpApi {
 
     /**
      * 创建ViseApi.Builder
-     *
-     * @param context
-     * @return
      */
     public HttpApi.Builder newBuilder(Context context) {
         return new HttpApi.Builder(context);
@@ -551,7 +363,7 @@ public class HttpApi {
     }
 
     /**
-     * ViseApi的所有配置都通过建造者方式创建
+     * HttpApi的所有配置都通过建造者方式创建
      */
     public static final class Builder {
         private okhttp3.Call.Factory callFactory;
@@ -576,9 +388,6 @@ public class HttpApi {
 
         /**
          * 设置自定义OkHttpClient
-         *
-         * @param client
-         * @return
          */
         public HttpApi.Builder client(OkHttpClient client) {
             retrofitBuilder.client(checkNotNull(client, "client == null"));
@@ -587,9 +396,6 @@ public class HttpApi {
 
         /**
          * 设置Call的工厂
-         *
-         * @param factory
-         * @return
          */
         public HttpApi.Builder callFactory(okhttp3.Call.Factory factory) {
             this.callFactory = checkNotNull(factory, "factory == null");
@@ -598,9 +404,6 @@ public class HttpApi {
 
         /**
          * 设置连接超时时间（秒）
-         *
-         * @param timeout
-         * @return
          */
         public HttpApi.Builder connectTimeout(int timeout) {
             return connectTimeout(timeout, TimeUnit.SECONDS);
@@ -608,9 +411,6 @@ public class HttpApi {
 
         /**
          * 设置读取超时时间（秒）
-         *
-         * @param timeout
-         * @return
          */
         public HttpApi.Builder readTimeout(int timeout) {
             return readTimeout(timeout, TimeUnit.SECONDS);
@@ -618,9 +418,6 @@ public class HttpApi {
 
         /**
          * 设置写入超时时间（秒）
-         *
-         * @param timeout
-         * @return
          */
         public HttpApi.Builder writeTimeout(int timeout) {
             return writeTimeout(timeout, TimeUnit.SECONDS);
@@ -628,9 +425,6 @@ public class HttpApi {
 
         /**
          * 设置是否添加Cookie
-         *
-         * @param isCookie
-         * @return
          */
         public HttpApi.Builder cookie(boolean isCookie) {
             this.isCookie = isCookie;
@@ -639,9 +433,6 @@ public class HttpApi {
 
         /**
          * 设置是否添加缓存
-         *
-         * @param isCache
-         * @return
          */
         public HttpApi.Builder cache(boolean isCache) {
             this.isCache = isCache;
@@ -650,9 +441,6 @@ public class HttpApi {
 
         /**
          * 设置代理
-         *
-         * @param proxy
-         * @return
          */
         public HttpApi.Builder proxy(Proxy proxy) {
             okHttpBuilder.proxy(checkNotNull(proxy, "proxy == null"));
@@ -661,9 +449,6 @@ public class HttpApi {
 
         /**
          * 设置连接池
-         *
-         * @param connectionPool
-         * @return
          */
         public HttpApi.Builder connectionPool(ConnectionPool connectionPool) {
             if (connectionPool == null) throw new NullPointerException("connectionPool == null");
@@ -673,10 +458,6 @@ public class HttpApi {
 
         /**
          * 设置连接超时时间
-         *
-         * @param timeout
-         * @param unit
-         * @return
          */
         public HttpApi.Builder connectTimeout(int timeout, TimeUnit unit) {
             if (timeout > -1) {
@@ -689,10 +470,6 @@ public class HttpApi {
 
         /**
          * 设置写入超时时间
-         *
-         * @param timeout
-         * @param unit
-         * @return
          */
         public HttpApi.Builder writeTimeout(int timeout, TimeUnit unit) {
             if (timeout > -1) {
@@ -705,10 +482,6 @@ public class HttpApi {
 
         /**
          * 设置读取超时时间
-         *
-         * @param timeout
-         * @param unit
-         * @return
          */
         public HttpApi.Builder readTimeout(int timeout, TimeUnit unit) {
             if (timeout > -1) {
@@ -721,9 +494,6 @@ public class HttpApi {
 
         /**
          * 设置请求BaseURL
-         *
-         * @param baseUrl
-         * @return
          */
         public HttpApi.Builder baseUrl(String baseUrl) {
             this.baseUrl = checkNotNull(baseUrl, "baseUrl == null");
@@ -732,9 +502,6 @@ public class HttpApi {
 
         /**
          * 设置转换工厂
-         *
-         * @param factory
-         * @return
          */
         public HttpApi.Builder converterFactory(Converter.Factory factory) {
             this.converterFactory = factory;
@@ -743,9 +510,6 @@ public class HttpApi {
 
         /**
          * 设置CallAdapter工厂
-         *
-         * @param factory
-         * @return
          */
         public HttpApi.Builder callAdapterFactory(CallAdapter.Factory factory) {
             this.callAdapterFactory = factory;
@@ -754,9 +518,6 @@ public class HttpApi {
 
         /**
          * 设置请求头部
-         *
-         * @param headers
-         * @return
          */
         public HttpApi.Builder headers(Map<String, String> headers) {
             okHttpBuilder.addInterceptor(new HeadersInterceptor(headers));
@@ -765,9 +526,6 @@ public class HttpApi {
 
         /**
          * 设置请求参数
-         *
-         * @param parameters
-         * @return
          */
         public HttpApi.Builder parameters(Map<String, String> parameters) {
             okHttpBuilder.addInterceptor(new HeadersInterceptor(parameters));
@@ -776,9 +534,6 @@ public class HttpApi {
 
         /**
          * 设置拦截器
-         *
-         * @param interceptor
-         * @return
          */
         public HttpApi.Builder interceptor(Interceptor interceptor) {
             okHttpBuilder.addInterceptor(checkNotNull(interceptor, "interceptor == null"));
@@ -787,9 +542,6 @@ public class HttpApi {
 
         /**
          * 设置网络拦截器
-         *
-         * @param interceptor
-         * @return
          */
         public HttpApi.Builder networkInterceptor(Interceptor interceptor) {
             okHttpBuilder.addNetworkInterceptor(checkNotNull(interceptor, "interceptor == null"));
@@ -798,9 +550,6 @@ public class HttpApi {
 
         /**
          * 设置Cookie管理
-         *
-         * @param cookie
-         * @return
          */
         public HttpApi.Builder cookieManager(ApiCookie cookie) {
             if (cookie == null) throw new NullPointerException("cookieManager == null");
@@ -810,9 +559,6 @@ public class HttpApi {
 
         /**
          * 设置SSL工厂
-         *
-         * @param sslSocketFactory
-         * @return
          */
         public HttpApi.Builder SSLSocketFactory(SSLSocketFactory sslSocketFactory) {
             this.sslSocketFactory = sslSocketFactory;
@@ -821,9 +567,6 @@ public class HttpApi {
 
         /**
          * 设置主机验证机制
-         *
-         * @param hostnameVerifier
-         * @return
          */
         public HttpApi.Builder hostnameVerifier(HostnameVerifier hostnameVerifier) {
             this.hostnameVerifier = hostnameVerifier;
@@ -832,8 +575,6 @@ public class HttpApi {
 
         /**
          * 使用POST方式是否需要进行GZIP压缩，服务器不支持则不设置
-         *
-         * @return
          */
         public HttpApi.Builder postGzipInterceptor() {
             interceptor(new GzipRequestInterceptor());
@@ -842,9 +583,6 @@ public class HttpApi {
 
         /**
          * 设置缓存Key，主要针对网路请求结果进行缓存
-         *
-         * @param cacheKey
-         * @return
          */
         public HttpApi.Builder cacheKey(String cacheKey) {
             apiCacheBuilder.cacheKey(checkNotNull(cacheKey, "cacheKey == null"));
@@ -853,9 +591,6 @@ public class HttpApi {
 
         /**
          * 设置缓存时间，默认永久，主要针对网路请求结果进行缓存
-         *
-         * @param cacheTime
-         * @return
          */
         public HttpApi.Builder cacheTime(long cacheTime) {
             apiCacheBuilder.cacheTime(Math.max(DiskCache.CACHE_NEVER_EXPIRE, cacheTime));
@@ -864,9 +599,6 @@ public class HttpApi {
 
         /**
          * 设置缓存类型，可根据类型自动配置缓存策略，主要针对网络请求结果进行缓存
-         *
-         * @param mCacheMode
-         * @return
          */
         public HttpApi.Builder cacheMode(CacheMode mCacheMode) {
             cacheMode = mCacheMode;
@@ -875,9 +607,6 @@ public class HttpApi {
 
         /**
          * 设置在线缓存，主要针对网路请求过程进行缓存
-         *
-         * @param cache
-         * @return
          */
         public HttpApi.Builder cacheOnline(Cache cache) {
             networkInterceptor(new OnlineCacheInterceptor());
@@ -887,10 +616,6 @@ public class HttpApi {
 
         /**
          * 设置在线缓存，主要针对网路请求过程进行缓存
-         *
-         * @param cache
-         * @param cacheControlValue
-         * @return
          */
         public HttpApi.Builder cacheOnline(Cache cache, final int cacheControlValue) {
             networkInterceptor(new OnlineCacheInterceptor(cacheControlValue));
@@ -900,9 +625,6 @@ public class HttpApi {
 
         /**
          * 设置离线缓存，主要针对网路请求过程进行缓存
-         *
-         * @param cache
-         * @return
          */
         public HttpApi.Builder cacheOffline(Cache cache) {
             networkInterceptor(new OfflineCacheInterceptor(context));
@@ -913,10 +635,6 @@ public class HttpApi {
 
         /**
          * 设置离线缓存，主要针对网路请求过程进行缓存
-         *
-         * @param cache
-         * @param cacheControlValue
-         * @return
          */
         public HttpApi.Builder cacheOffline(Cache cache, final int cacheControlValue) {
             networkInterceptor(new OfflineCacheInterceptor(context, cacheControlValue));

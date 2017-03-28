@@ -4,13 +4,7 @@ import android.text.TextUtils;
 
 import java.text.DecimalFormat;
 
-/**
- * ================================================
- * 上海建业信息科技股份有限公司  经营管家
- * 日 期： 2016/7/7 13:18
- * 作 者：huxuelei
- * =================================================
- **/
+
 public class MoneyUtils {
 
     public static String FormatmoneyTwo(String money) {
