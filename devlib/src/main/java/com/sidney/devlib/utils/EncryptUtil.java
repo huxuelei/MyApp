@@ -2,6 +2,7 @@ package com.sidney.devlib.utils;
 
 import android.util.Base64;
 
+import java.io.IOException;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -76,7 +77,7 @@ public class EncryptUtil {
      */
     public static String encryptBASE64(byte[] plainData) {
         //return encoder.encode(plainData);
-        return Base64.encode(plainData, Base64.DEFAULT).toString();
+        return new String(Base64.encode(plainData, Base64.DEFAULT));
     }
 
     /**
@@ -87,14 +88,12 @@ public class EncryptUtil {
      */
     public static byte[] decryptBASE64(String cipherText) {
         byte[] plainData = null;
-        //try {
-        //plainData =  decoder.decodeBuffer(cipherText);
-        plainData = Base64.decode(cipherText, Base64.DEFAULT);
-        //}
-        //catch (IOException e) {
-        // Exception handler
-        //    LogHandler.i(e);
-        //}
+        try {
+            //plainData =  decoder.decodeBuffer(cipherText);
+            plainData = Base64.decode(cipherText.getBytes("UTF-8"), Base64.DEFAULT);
+        } catch (IOException e) {
+
+        }
         return plainData;
     }
 

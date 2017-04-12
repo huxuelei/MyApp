@@ -126,6 +126,22 @@ public class HttpApi {
     }
 
     /**
+     * sidney
+     * 普通POST方式请求，需传入实体类  请求参数为json
+     */
+    public <T> Observable<T> postJson(final String url, final RequestBody jsonBody, Class<T> clazz) {
+        return apiService.postJson(url, jsonBody).compose(this.norTransformer(clazz));
+    }
+
+    /**
+     * sidney
+     * 普通POST方式请求，无需订阅，只需传入Callback回调  请求参数为json
+     */
+    public <T> Subscription postJson(String url, RequestBody jsonBody, ApiCallback<T> callback) {
+        return this.postJson(url, jsonBody, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
+    }
+
+    /**
      * 普通POST方式请求，无需订阅，只需传入Callback回调
      */
     public <T> Subscription post(String url, Map<String, String> maps, ApiCallback<T> callback) {
@@ -231,7 +247,7 @@ public class HttpApi {
         return apiService.uploadFiles(url, files).compose(this.norTransformer(clazz));
     }
 
-    /*=============================以下处理服务器返回对象为ApiResult<T>形式的请求=================================*/
+    /*******=============================以下处理服务器返回对象为ApiResult<T>形式的请求================***********/
 
     /**
      * 由外部设置被观察者
@@ -291,6 +307,22 @@ public class HttpApi {
      */
     public <T> Observable<T> apiPost(final String url, final Map<String, String> parameters, Class<T> clazz) {
         return apiService.post(url, parameters).map(new ApiResultFunc<T>(clazz)).compose(this.<T>apiTransformer());
+    }
+
+    /**
+     * sindey
+     * 返回ApiResult<T>的POST方式请求，需传入实体类 传json
+     */
+    public <T> Observable<T> apiPostJson(final String url, final RequestBody jsonBody, Class<T> clazz) {
+        return apiService.postJson(url, jsonBody).map(new ApiResultFunc<T>(clazz)).compose(this.<T>apiTransformer());
+    }
+
+    /**
+     * sindey
+     * 返回ApiResult<T>的POST方式请求，无需订阅，只需传入Callback回调 传json
+     */
+    public <T> Subscription apiPostJson(final String url, final RequestBody jsonBody, ApiCallback<T> callback) {
+        return this.apiPostJson(url, jsonBody, ClassUtil.getTClass(callback)).subscribe(new ApiCallbackSubscriber(context, callback));
     }
 
     /**
@@ -461,8 +493,10 @@ public class HttpApi {
          */
         public HttpApi.Builder connectTimeout(int timeout, TimeUnit unit) {
             if (timeout > -1) {
+                Log.i("====timeout====", String.valueOf(timeout));
                 okHttpBuilder.connectTimeout(timeout, unit);
             } else {
+                Log.i("====timeout====", String.valueOf(timeout) + "====" + HttpConfig.DEFAULT_TIMEOUT);
                 okHttpBuilder.connectTimeout(HttpConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
             }
             return this;
@@ -497,6 +531,7 @@ public class HttpApi {
          */
         public HttpApi.Builder baseUrl(String baseUrl) {
             this.baseUrl = checkNotNull(baseUrl, "baseUrl == null");
+            Log.i("===设置请求BaseURL====",baseUrl);
             return this;
         }
 
@@ -657,9 +692,11 @@ public class HttpApi {
             }
 
             if (baseUrl == null) {
-                baseUrl = ApiHost.getHost();
+                this.baseUrl = ApiHost.getHost();
             }
+            Log.i("===baseUrl====",baseUrl);
             retrofitBuilder.baseUrl(baseUrl);
+
 
             if (converterFactory == null) {
                 converterFactory = GsonConverterFactory.create();
@@ -684,6 +721,11 @@ public class HttpApi {
                 sslSocketFactory = SSLUtil.getSslSocketFactory(null, null, null);
             }
             okHttpBuilder.sslSocketFactory(sslSocketFactory);
+
+            //超时时间的设置
+            okHttpBuilder.connectTimeout(HttpConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            okHttpBuilder.readTimeout(HttpConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            okHttpBuilder.writeTimeout(HttpConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
             if (connectionPool == null) {
                 connectionPool = new ConnectionPool(HttpConfig.DEFAULT_MAX_IDLE_CONNECTIONS, HttpConfig.DEFAULT_KEEP_ALIVE_DURATION, TimeUnit.SECONDS);
