@@ -18,9 +18,9 @@ public class AppApplication extends Application {
         mContext = this;
         LogUtil.setLog(true);
         //崩溃处理
-        CrashHandlerUtil crashHandlerUtil = CrashHandlerUtil.getInstance();
-        crashHandlerUtil.init(this);
-        crashHandlerUtil.setCrashTip("很抱歉，程序出现异常，即将退出！");
+//        CrashHandlerUtil crashHandlerUtil = CrashHandlerUtil.getInstance();
+//        crashHandlerUtil.init(this);
+//        crashHandlerUtil.setCrashTip("很抱歉，程序出现异常，即将退出！");
     }
 
     public static synchronized AppApplication getInstance() {
