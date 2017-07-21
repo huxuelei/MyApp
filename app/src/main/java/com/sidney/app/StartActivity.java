@@ -23,7 +23,6 @@ public class StartActivity extends BaseActivity {
         //PermissionUtils.requestMultiPermissions(this, mPermissionGrant);//一次申请多个权限
     }
 
-
     private PermissionUtils.PermissionGrant mPermissionGrant = new PermissionUtils.PermissionGrant() {
         @Override
         public void onPermissionGranted(int requestCode) {
@@ -50,7 +49,7 @@ public class StartActivity extends BaseActivity {
 //                    Toast.makeText(mActivity, "Result Permission Grant CODE_ACCESS_COARSE_LOCATION", Toast.LENGTH_SHORT).show();
 //                    break;
                 case PermissionUtils.CODE_READ_EXTERNAL_STORAGE:
-                    Toast.makeText(mActivity, "========Result Permission Grant CODE_READ_EXTERNAL_STORAGE====", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mActivity, "========Result Permission Grant CODE_READ_EXTERNAL_STORAGE====", Toast.LENGTH_SHORT).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -75,7 +74,16 @@ public class StartActivity extends BaseActivity {
     public void onRequestPermissionsResult(final int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         Log.d("ppppppp====", "===========" + requestCode + "=====" + permissions + "===========" + grantResults);
-        PermissionUtils.requestPermissionsResult(this, requestCode, permissions, grantResults, mPermissionGrant);
+        if (!PermissionUtils.isPermissionsResult(this, requestCode, permissions, grantResults, mPermissionGrant)) {
+            Toast.makeText(mActivity, "请到系统设置中开启外部存储读写权限", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent it = new Intent(mActivity, MainActivity.class);
+                    startActivity(it);
+                }
+            }, 2000);
+        }
     }
 
 }
