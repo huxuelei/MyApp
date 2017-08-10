@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.sidney.devlib.ui.BaseActivity;
+import com.sidney.devlib.utils.CrashHandlerUtil;
 import com.sidney.devlib.utils.PermissionUtils;
 
 public class StartActivity extends BaseActivity {
@@ -49,6 +50,10 @@ public class StartActivity extends BaseActivity {
 //                    Toast.makeText(mActivity, "Result Permission Grant CODE_ACCESS_COARSE_LOCATION", Toast.LENGTH_SHORT).show();
 //                    break;
                 case PermissionUtils.CODE_READ_EXTERNAL_STORAGE:
+                    //崩溃处理
+                    CrashHandlerUtil crashHandlerUtil = CrashHandlerUtil.getInstance();
+                    crashHandlerUtil.init(mActivity);
+                    crashHandlerUtil.setCrashTip("很抱歉，程序出现异常，即将退出！");
                     //Toast.makeText(mActivity, "========Result Permission Grant CODE_READ_EXTERNAL_STORAGE====", Toast.LENGTH_SHORT).show();
                     new Handler().postDelayed(new Runnable() {
                         @Override

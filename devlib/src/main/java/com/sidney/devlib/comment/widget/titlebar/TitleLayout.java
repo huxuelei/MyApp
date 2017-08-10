@@ -1,13 +1,16 @@
 package com.sidney.devlib.comment.widget.titlebar;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,14 +35,20 @@ public class TitleLayout extends RelativeLayout {
     private String titleTxtStr;
     private String rightBtnStr;
     private int rightBtnIconId;
+    private LinearLayout mTitleLeftArea;
+    private LinearLayout mTitleRightArea;
+
+    private Context mContext;
 
 
     public TitleLayout(Context context) {
         super(context);
+        this.mContext = context;
     }
 
     public TitleLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.TitleLayout);
         // 如果后续有文字按钮，可使用该模式设置
         leftBtnStr = arr.getString(R.styleable.TitleLayout_leftBtnTxt);
@@ -56,11 +65,14 @@ public class TitleLayout extends RelativeLayout {
         arr.recycle();
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     protected void onFinishInflate() {
         if (isInEditMode()) {
             return;
         }
+        mTitleLeftArea = (LinearLayout) findViewById(R.id.title_left_area);
+        mTitleRightArea = (LinearLayout) findViewById(R.id.title_right_area);
         leftButtonImg = (ImageView) findViewById(R.id.title_left_btn);
         leftButton = (TextView) findViewById(R.id.title_left);
         middleButton = (TextView) findViewById(R.id.title_middle);
@@ -93,6 +105,30 @@ public class TitleLayout extends RelativeLayout {
         }
     }
 
+    public void setRightImgIconBtn(int rightBtnIconId) {
+        rightButtonImg.setImageResource(rightBtnIconId);
+        rightButtonImg.setVisibility(VISIBLE);
+    }
+
+    public void setRightTxtClor(int txtClor) {
+        rightButton.setTextColor(ContextCompat.getColor(mContext, txtClor));
+    }
+
+    public void setEnabledRightBtn(boolean isEnabled) {
+        mTitleRightArea.setEnabled(isEnabled);
+    }
+
+    public void hideRightBtn() {
+        rightButton.setVisibility(View.GONE);
+        rightButtonImg.setVisibility(View.GONE);
+        findViewById(R.id.title_right_area).setOnClickListener(null);
+    }
+
+    public void setRightBtnOnclickListener(OnClickListener listener) {
+        OnClickListener myListener = new ToHeavyOnClickListener(listener, BTN_LIMIT_TIME);
+        findViewById(R.id.title_right_area).setOnClickListener(myListener);
+    }
+
     public void setLeftTxtBtn(String leftBtnStr) {
         if (!TextUtils.isEmpty(leftBtnStr)) {
             leftButton.setText(leftBtnStr);
@@ -100,6 +136,30 @@ public class TitleLayout extends RelativeLayout {
         } else {
             leftButton.setVisibility(View.GONE);
         }
+    }
+
+    public void setLeftTxtClor(int txtClor) {
+        leftButton.setTextColor(ContextCompat.getColor(mContext, txtClor));
+    }
+
+    public void setLeftImgIconBtn(int leftBtnIconId) {
+        leftButtonImg.setImageResource(leftBtnIconId);
+        leftButtonImg.setVisibility(VISIBLE);
+    }
+
+    public void hideLeftBtn() {
+        leftButton.setVisibility(View.GONE);
+        leftButtonImg.setVisibility(View.GONE);
+        findViewById(R.id.title_left_area).setOnClickListener(null);
+    }
+
+    public void setEnabledLeftBtn(boolean isEnabled) {
+        mTitleLeftArea.setEnabled(isEnabled);
+    }
+
+    public void setLeftBtnOnclickListener(OnClickListener listener) {
+        OnClickListener myListener = new ToHeavyOnClickListener(listener, BTN_LIMIT_TIME);
+        findViewById(R.id.title_left_area).setOnClickListener(myListener);
     }
 
     public void setTitleTxt(String title) {
@@ -111,26 +171,5 @@ public class TitleLayout extends RelativeLayout {
         }
     }
 
-    public void hideLeftBtn() {
-        leftButton.setVisibility(View.GONE);
-        leftButtonImg.setVisibility(View.GONE);
-        findViewById(R.id.title_left_area).setOnClickListener(null);
-    }
-
-    public void hideRightBtn() {
-        rightButton.setVisibility(View.GONE);
-        rightButtonImg.setVisibility(View.GONE);
-        findViewById(R.id.title_right_area).setOnClickListener(null);
-    }
-
-    public void setLeftBtnOnclickListener(OnClickListener listener) {
-        OnClickListener myListener = new ToHeavyOnClickListener(listener, BTN_LIMIT_TIME);
-        findViewById(R.id.title_left_area).setOnClickListener(myListener);
-    }
-
-    public void setRightBtnOnclickListener(OnClickListener listener) {
-        OnClickListener myListener = new ToHeavyOnClickListener(listener, BTN_LIMIT_TIME);
-        findViewById(R.id.title_right_area).setOnClickListener(myListener);
-    }
 
 }
