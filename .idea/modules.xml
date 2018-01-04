@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyApp.iml" filepath="$PROJECT_DIR$/MyApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dblib/dblib.iml" filepath="$PROJECT_DIR$/dblib/dblib.iml" />
       <module fileurl="file://$PROJECT_DIR$/devlib/devlib.iml" filepath="$PROJECT_DIR$/devlib/devlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/httplib/httplib.iml" filepath="$PROJECT_DIR$/httplib/httplib.iml" />
       <module fileurl="file://$PROJECT_DIR$/okhttplib/okhttplib.iml" filepath="$PROJECT_DIR$/okhttplib/okhttplib.iml" />
