@@ -14,7 +14,7 @@ import okhttp3.Headers;
 import okhttp3.Interceptor;
 
 /**
- * Created by 20164237 on 2016/4/19.
+ * Created by 20164237 on 2016/4/19...
  */
 public class MyApplication extends AppApplication {
 
