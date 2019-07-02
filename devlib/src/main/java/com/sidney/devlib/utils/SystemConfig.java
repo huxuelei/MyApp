@@ -1,5 +1,6 @@
 package com.sidney.devlib.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -13,6 +14,8 @@ import android.view.Display;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.WindowManager;
+
+import java.lang.reflect.Method;
 
 public class SystemConfig {
 
@@ -45,13 +48,11 @@ public class SystemConfig {
 		if (context != null) { 
 			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
 			.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+			@SuppressLint("MissingPermission") NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
 			if (mNetworkInfo != null && mNetworkInfo.isAvailable()) { 
 				return NetWorkStatus.ConnectSuccess; 
 			} 
-		
-
-		} 
+		}
 		return NetWorkStatus.ConnectFailed; 
 	} 
 	
@@ -220,7 +221,7 @@ public class SystemConfig {
     public static String getDeviceId(Context context)
     {
     	TelephonyManager TelephonyMgr = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-    	String szImei = TelephonyMgr.getDeviceId();
+    	@SuppressLint("MissingPermission") String szImei = TelephonyMgr.getDeviceId();
     	return szImei;
     }
     
@@ -229,4 +230,39 @@ public class SystemConfig {
     	ConnectFailed,
     	ConnectSuccess
     }
+
+	@SuppressLint("MissingPermission")
+	public String getIMEI(Context context) {
+		return ((TelephonyManager)context.getSystemService(
+				Context.TELEPHONY_SERVICE)).getDeviceId();
+	}
+	@SuppressLint("HardwareIds")
+	public  String getAndroidId(Context context) {
+		return android.provider.Settings.Secure.getString(context.getContentResolver(),
+				android.provider.Settings.Secure.ANDROID_ID);
+	}
+	@SuppressLint("MissingPermission")
+	public  String getSimSerialNumber(Context context) {
+		return ((TelephonyManager)context.getSystemService(
+				Context.TELEPHONY_SERVICE)).getSimSerialNumber();
+	}
+	public static String getSerialNumber1(Context context) {
+		return android.os.Build.SERIAL;
+	}
+	/**
+	 * getSerialNumber
+	 * @return result is same to getSerialNumber1()
+	 */
+	public  String getSerialNumber(){
+		String serial = null;
+		try {
+			Class<?> c =Class.forName("android.os.SystemProperties");
+			Method get =c.getMethod("get", String.class);
+			serial = (String)get.invoke(c, "ro.serialno");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return serial;
+	}
+
 }
