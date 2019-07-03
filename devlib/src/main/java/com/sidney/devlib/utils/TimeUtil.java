@@ -106,6 +106,28 @@ public class TimeUtil {
     }
 
     /**
+     * 时间相差多少
+     *
+     * @param date1  date1
+     * @param date2  date2
+     * @param format "yyyy-MM-dd HH:mm:ss"
+     * @return 相差小时数
+     */
+    public static long differDate(String date1, String date2, String format) {
+        DateFormat df = new SimpleDateFormat(format, Locale.getDefault());
+        try {
+            Date dt1 = df.parse(date1);
+            Date dt2 = df.parse(date2);
+            long time = dt1.getTime() - dt2.getTime();
+            return time / (1000 * 60 * 60);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return 0;
+    }
+
+
+    /**
      * 时间加减
      *
      * @param day       如"2015-09-22"
