@@ -32,7 +32,7 @@ public class ThreeFragment extends BaseFragment {
     }
 
     private void showDialog() {
-        LollipopDialog dialog = new LollipopDialog(mActivity);
+        LollipopDialog dialog = new LollipopDialog(mContext);
         dialog.setText("确认删除合作伙伴?");
         dialog.show();
         dialog.setDialogListener(new LollipopDialog.LollipopDialogListener() {
@@ -54,7 +54,7 @@ public class ThreeFragment extends BaseFragment {
     }
 
     private void dialogCheckIdea() {
-        CustomDialog dialog = new CustomDialog(mActivity);
+        CustomDialog dialog = new CustomDialog(mContext);
         dialog.setButtonText("请领导批示", "妥否,请批示", "取消");
         final Dialog bottomDialog = dialog.create();
         dialog.setOnCDialogCalback(new CustomDialog.OnCDialogCalback() {

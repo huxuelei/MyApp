@@ -50,7 +50,7 @@ public class TwoFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_listview:
-                Intent listView = new Intent(mActivity, ListviewDemoActivity.class);
+                Intent listView = new Intent(mContext, ListviewDemoActivity.class);
                 startActivity(listView);
                 break;
         }

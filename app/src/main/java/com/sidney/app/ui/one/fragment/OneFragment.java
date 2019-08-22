@@ -19,6 +19,7 @@ import com.sidney.app.R;
 import com.sidney.app.http.MyBaseHttpRequestCallback;
 import com.sidney.app.response.TestResponse;
 import com.sidney.app.response.UploadResponse;
+import com.sidney.app.ui.one.activity.VmActivity;
 import com.sidney.devlib.ui.BaseFragment;
 
 import java.io.File;
@@ -29,7 +30,7 @@ import java.io.File;
 public class OneFragment extends BaseFragment implements View.OnClickListener {
 
     private View mView;
-    private Button btn_get, btn_post;
+    private Button btn_get, btn_post, btn_vm;
 
 
     public OneFragment() {
@@ -56,13 +57,15 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void findViewById() {
-        btn_get = (Button) mView.findViewById(R.id.btn_get);
-        btn_post = (Button) mView.findViewById(R.id.btn_post);
+        btn_get = mView.findViewById(R.id.btn_get);
+        btn_post = mView.findViewById(R.id.btn_post);
+        btn_vm = mView.findViewById(R.id.btn_vm);
     }
 
     private void setOnClickListener() {
         btn_get.setOnClickListener(this);
         btn_post.setOnClickListener(this);
+        btn_vm.setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +76,9 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.btn_post:
 
+                break;
+            case R.id.btn_vm:
+                VmActivity.launch(mContext);
                 break;
         }
     }
@@ -90,7 +96,7 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
                 super.onSuccess(response);
                 if (1 == response.getStatus()) {
                     ILogger.d("返回数据===" + JsonFormatUtils.formatJson(response.getData()));
-                    Toast.makeText(mActivity, "成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "成功", Toast.LENGTH_SHORT).show();
                 } else if (0 == response.getStatus()) {
 
                 }
@@ -118,13 +124,13 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onSuccess(UploadResponse uploadResponse) {
                 super.onSuccess(uploadResponse);
-                Toast.makeText(mActivity, "上传成功：" + uploadResponse.getData(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "上传成功：" + uploadResponse.getData(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(int errorCode, String msg) {
                 super.onFailure(errorCode, msg);
-                Toast.makeText(mActivity, "上传失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -155,13 +161,13 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onFailure() {
                 super.onFailure();
-                Toast.makeText(mActivity, "下载失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "下载失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onDone() {
                 super.onDone();
-                Toast.makeText(mActivity, "下载成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "下载成功", Toast.LENGTH_SHORT).show();
             }
         });
     }

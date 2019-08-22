@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         //setCurrentItem(1);
         //setCurrentItem(2);
         setCurrentItem(0);
+        switchFragment(0);
     }
 
     /**
