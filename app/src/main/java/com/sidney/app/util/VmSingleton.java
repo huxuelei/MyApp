@@ -3,6 +3,7 @@ package com.sidney.app.util;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.sidney.app.R;
 import com.watermark.androidwm.WatermarkBuilder;
+import com.watermark.androidwm.bean.WatermarkImage;
 import com.watermark.androidwm.bean.WatermarkText;
 
 import java.io.File;
@@ -33,6 +35,8 @@ public class VmSingleton {
 
     private Context mContext;
 
+    private String mImgSrc;//图片原路径
+
     private VmSingleton(Context cxt) {
         this.mContext = cxt;
     }
@@ -49,12 +53,16 @@ public class VmSingleton {
     }
 
     /**
+     * 生成文字水印 3行文字
+     *
      * @appNo 工单编号
      * @name 姓名+账号
      * @time 工单时间
+     * @src 图片原路径
      */
-    public void watermarkText(String appNo, String name, String time, ImageView img) {
+    public void watermarkText(String appNo, String name, String time, ImageView img, String src) {
         try {
+            this.mImgSrc = src;
             WatermarkText watermarkText1 = new WatermarkText(appNo)
                     .setPositionX(0.50)
                     .setPositionY(0.70)
@@ -101,17 +109,21 @@ public class VmSingleton {
     }
 
     /**
+     * 生成文字水印 3行文字
+     *
      * @appNo 工单编号
      * @name 姓名+账号
      * @time 工单时间
      * @x1 坐标(左上角起) 0-1
      * @y1 坐标(左上角起) 0-1
      * @textAlpha 文字透明度
+     * @textSize 文字大小
      */
-    public void watermarkText(String appNo, String name, String time, ImageView img,
+    public void watermarkText(String appNo, String name, String time, ImageView img, String src,
                               double x1, double y1, double x2, double y2, double x3, double y3,
                               int textSize, int textAlpha) {
         try {
+            this.mImgSrc = src;
             WatermarkText watermarkText1 = new WatermarkText(appNo)
                     .setPositionX(x1)
                     .setPositionY(y1)
@@ -158,6 +170,63 @@ public class VmSingleton {
     }
 
     /**
+     * 生成文字水印 1行文字
+     *
+     * @str 生成水印的文字
+     * @x 坐标(左上角起) 0-1
+     * @y 坐标(左上角起) 0-1
+     * @textAlpha 文字透明度
+     * @textSize 文字大小
+     */
+    public void watermarkText(String str, ImageView img, String src, double x, double y, int textSize, int textAlpha) {
+        try {
+            this.mImgSrc = src;
+            WatermarkText watermarkText = new WatermarkText(str)
+                    .setPositionX(x)
+                    .setPositionY(y)
+                    .setTextColor(Color.WHITE)
+                    .setTextFont(R.font.champagne)
+                    .setTextShadow(0.3f, 3, 3, Color.GRAY)
+                    .setTextAlpha(textAlpha)
+                    //.setRotation(10)
+                    .setTextSize(textSize);
+
+            WatermarkBuilder.create(mContext, img)
+                    .setTileMode(false)
+                    .loadWatermarkText(watermarkText)
+                    .getWatermark()
+                    .setToImageView(img);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 生成图片水印
+     *
+     * @drawable 生成水印的文字
+     * @img 水印图片控件
+     */
+    public void WatermarkImage(ImageView img, int drawable) {
+        Bitmap watermarkBitmap = BitmapFactory.decodeResource(mContext.getResources(),
+                drawable);
+        WatermarkImage watermarkImage = new WatermarkImage(watermarkBitmap)
+                .setImageAlpha(80)
+                .setPositionX(Math.random())
+                .setPositionY(Math.random())
+                .setRotation(15)
+                .setSize(0.1);
+
+        WatermarkBuilder.create(mContext, img)
+                .loadWatermarkImage(watermarkImage)
+                .setTileMode(true)
+                .getWatermark()
+                .setToImageView(img);
+    }
+
+    /**
+     * 获取图片水印路径
+     *
      * @img 生成的图片水印
      * @type 01工单类 02非工单类
      * @userName 账号
@@ -165,7 +234,7 @@ public class VmSingleton {
      * @orderNo 工单编号
      * @propertyNo 资产编号
      * @time 时间yyyy-MM-dd-HH-mm-ss
-     * @functionCode 功能编码
+     * @functionCode 功能名称
      */
     public String getWatermarkSrc(ImageView img, String type, String userName, String orderType, String orderNo,
                                   String propertyNo, String time, String functionCode) {
@@ -219,5 +288,12 @@ public class VmSingleton {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 返回原图片路径
+     */
+    public String getImgSrc() {
+        return mImgSrc;
     }
 }
