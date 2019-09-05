@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.sidney.app.R;
 import com.watermark.androidwm.WatermarkBuilder;
@@ -98,11 +100,18 @@ public class VmSingleton {
             watermarkTexts.add(watermarkText2);
             watermarkTexts.add(watermarkText3);
 
-            WatermarkBuilder.create(mContext, img)
+            ImageView img1 = new ImageView(mContext);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400);
+            img1.setLayoutParams(params);
+
+            img1.setImageResource(R.drawable.logo);
+            WatermarkBuilder.create(mContext, img1)
                     .setTileMode(false)
                     .loadWatermarkTexts(watermarkTexts)
                     .getWatermark()
-                    .setToImageView(img);
+                    .setToImageView(img1);
+
+            getWatermarkSrc(img1, "01", "1", "1", "1", "1", "1", "1");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -100,8 +100,8 @@ public class VmActivity extends BaseActivity {
         btnAddText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                VmSingleton.getSingleton(mActivity).watermarkText("工单编号：123456789012",
-//                        "张珊（zhang san san）","2019-08-21 10:21:22",backgroundView);
+                VmSingleton.getSingleton(mActivity).watermarkText("工单编号：123456789012",
+                        "张珊（zhang san san）","2019-08-21 10:21:22",backgroundView,"");
                /* WatermarkText watermarkText1 = new WatermarkText("工单编号：123456789012")
                         .setPositionX(0.50)
                         .setPositionY(0.70)
@@ -150,11 +150,11 @@ public class VmActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //VmSingleton.getSingleton(mActivity).getWatermarkSrc(backgroundView);
-                Bitmap bitmap = WatermarkBuilder
-                        .create(mActivity, backgroundView)
-                        .getWatermark()
-                        .getOutputImage();
-                backgroundView2.setImageBitmap(bitmap);
+//                Bitmap bitmap = WatermarkBuilder
+//                        .create(mActivity, backgroundView)
+//                        .getWatermark()
+//                        .getOutputImage();
+//                backgroundView2.setImageBitmap(bitmap);
                 // Math.random()
                /* WatermarkImage watermarkImage = new WatermarkImage(watermarkBitmap)
                         .setImageAlpha(80)
