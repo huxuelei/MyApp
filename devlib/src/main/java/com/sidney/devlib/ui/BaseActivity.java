@@ -2,9 +2,8 @@ package com.sidney.devlib.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends Activity {
     public Activity mActivity;
 
     @Override
