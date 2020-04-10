@@ -19,7 +19,7 @@ import com.sidney.app.R;
 import com.sidney.app.http.MyBaseHttpRequestCallback;
 import com.sidney.app.response.TestResponse;
 import com.sidney.app.response.UploadResponse;
-import com.sidney.app.ui.one.activity.VmActivity;
+import com.sidney.app.test.TestActivity;
 import com.sidney.devlib.ui.BaseFragment;
 
 import java.io.File;
@@ -78,7 +78,8 @@ public class OneFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.btn_vm:
-                VmActivity.launch(mContext);
+                new TestActivity().launch(getContext());
+                //VmActivity.launch(mContext);
                 break;
         }
     }

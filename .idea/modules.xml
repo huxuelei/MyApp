@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyApp.iml" filepath="$PROJECT_DIR$/MyApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dblib/dblib.iml" filepath="$PROJECT_DIR$/dblib/dblib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/devlib/devlib.iml" filepath="$PROJECT_DIR$/devlib/devlib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/httplib/httplib.iml" filepath="$PROJECT_DIR$/httplib/httplib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/okhttplib/okhttplib.iml" filepath="$PROJECT_DIR$/okhttplib/okhttplib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/retrofitlib/retrofitlib.iml" filepath="$PROJECT_DIR$/retrofitlib/retrofitlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyApp.iml" filepath="$PROJECT_DIR$/MyApp.iml" group="MyApp" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="MyApp/app" />
+      <module fileurl="file://$PROJECT_DIR$/devlib/devlib.iml" filepath="$PROJECT_DIR$/devlib/devlib.iml" group="MyApp/devlib" />
+      <module fileurl="file://$PROJECT_DIR$/httplib/httplib.iml" filepath="$PROJECT_DIR$/httplib/httplib.iml" group="MyApp/httplib" />
+      <module fileurl="file://$PROJECT_DIR$/okhttplib/okhttplib.iml" filepath="$PROJECT_DIR$/okhttplib/okhttplib.iml" group="MyApp/okhttplib" />
+      <module fileurl="file://$PROJECT_DIR$/retrofitlib/retrofitlib.iml" filepath="$PROJECT_DIR$/retrofitlib/retrofitlib.iml" group="MyApp/retrofitlib" />
     </modules>
   </component>
 </project>

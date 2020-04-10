@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class SPUtils {
 
-    public static String PREFERENCE_NAME = "com.sidney";
+    public static String PREFERENCE_NAME = "com.sgcc.pda.pre";
 
     /**
      * 设置保存的文件名
@@ -32,6 +32,20 @@ public class SPUtils {
      */
     public static boolean putString(Context context, String key, String value) {
         SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(key, value);
+        return editor.commit();
+    }
+
+    /**
+     * @param context
+     * @param key
+     * @param value
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static boolean putString(Context context, String key, String value, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(key, value);
         return editor.commit();
@@ -67,6 +81,18 @@ public class SPUtils {
     }
 
     /**
+     * @param context
+     * @param key
+     * @param defaultValue
+     * @param mode         传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static String getString(Context context, String key, String defaultValue, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
+        return settings.getString(key, defaultValue);
+    }
+
+    /**
      * put int preferences
      *
      * @param context
@@ -81,6 +107,21 @@ public class SPUtils {
         editor.putInt(key, value);
         return editor.commit();
     }
+
+    /**
+     * @param context
+     * @param key
+     * @param value
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static boolean putInt(Context context, String key, int value, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(key, value);
+        return editor.commit();
+    }
+
 
     /**
      * get int preferences
@@ -112,6 +153,18 @@ public class SPUtils {
     }
 
     /**
+     * @param context
+     * @param key
+     * @param defaultValue
+     * @param mode         传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static int getInt(Context context, String key, int defaultValue, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
+        return settings.getInt(key, defaultValue);
+    }
+
+    /**
      * put long preferences
      *
      * @param context
@@ -122,6 +175,20 @@ public class SPUtils {
      */
     public static boolean putLong(Context context, String key, long value) {
         SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putLong(key, value);
+        return editor.commit();
+    }
+
+    /**
+     * @param context
+     * @param key
+     * @param value
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static boolean putLong(Context context, String key, long value, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong(key, value);
         return editor.commit();
@@ -157,6 +224,18 @@ public class SPUtils {
     }
 
     /**
+     * @param context
+     * @param key
+     * @param defaultValue
+     * @param mode         传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static long getLong(Context context, String key, long defaultValue, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
+        return settings.getLong(key, defaultValue);
+    }
+
+    /**
      * put float preferences
      *
      * @param context
@@ -167,6 +246,20 @@ public class SPUtils {
      */
     public static boolean putFloat(Context context, String key, float value) {
         SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putFloat(key, value);
+        return editor.commit();
+    }
+
+    /**
+     * @param context
+     * @param key
+     * @param value
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static boolean putFloat(Context context, String key, float value, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
         SharedPreferences.Editor editor = settings.edit();
         editor.putFloat(key, value);
         return editor.commit();
@@ -202,6 +295,18 @@ public class SPUtils {
     }
 
     /**
+     * @param context
+     * @param key
+     * @param defaultValue
+     * @param mode         传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static float getFloat(Context context, String key, float defaultValue, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
+        return settings.getFloat(key, defaultValue);
+    }
+
+    /**
      * put boolean preferences
      *
      * @param context
@@ -212,6 +317,20 @@ public class SPUtils {
      */
     public static boolean putBoolean(Context context, String key, boolean value) {
         SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(key, value);
+        return editor.commit();
+    }
+
+    /**
+     * @param context
+     * @param key
+     * @param value
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static boolean putBoolean(Context context, String key, boolean value, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(key, value);
         return editor.commit();
@@ -247,6 +366,18 @@ public class SPUtils {
     }
 
     /**
+     * @param context
+     * @param key
+     * @param defaultValue
+     * @param mode         传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static boolean getBoolean(Context context, String key, boolean defaultValue, int mode) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, mode);
+        return settings.getBoolean(key, defaultValue);
+    }
+
+    /**
      * 移除某个key值已经对应的值
      *
      * @param context
@@ -254,6 +385,18 @@ public class SPUtils {
      */
     public static void removeKey(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(key);
+        editor.commit();
+    }
+
+    /**
+     * @param context
+     * @param key
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     */
+    public static void removeKey(Context context, String key, int mode) {
+        SharedPreferences sp = context.getSharedPreferences(PREFERENCE_NAME, mode);
         SharedPreferences.Editor editor = sp.edit();
         editor.remove(key);
         editor.commit();
@@ -272,6 +415,17 @@ public class SPUtils {
     }
 
     /**
+     * @param context
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     */
+    public static void clearAll(Context context, int mode) {
+        SharedPreferences sp = context.getSharedPreferences(PREFERENCE_NAME, mode);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+    /**
      * 查询某个key是否已经存在
      *
      * @param context
@@ -284,6 +438,17 @@ public class SPUtils {
     }
 
     /**
+     * @param context
+     * @param key
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static boolean isContainKey(Context context, String key, int mode) {
+        SharedPreferences sp = context.getSharedPreferences(PREFERENCE_NAME, mode);
+        return sp.contains(key);
+    }
+
+    /**
      * 返回所有的键值对
      *
      * @param context
@@ -291,6 +456,16 @@ public class SPUtils {
      */
     public static Map<String, ?> getAll(Context context) {
         SharedPreferences sp = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        return sp.getAll();
+    }
+
+    /**
+     * @param context
+     * @param mode    传Context.MODE_MULTI_PROCESS表示进程间访问
+     * @return
+     */
+    public static Map<String, ?> getAll(Context context, int mode) {
+        SharedPreferences sp = context.getSharedPreferences(PREFERENCE_NAME, mode);
         return sp.getAll();
     }
 }

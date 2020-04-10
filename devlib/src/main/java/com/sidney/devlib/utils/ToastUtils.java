@@ -9,28 +9,29 @@ import com.sidney.devlib.AppApplication;
  * ToastUtils
  */
 public class ToastUtils {
-    static Toast toast = Toast.makeText(AppApplication.getContext(), "", Toast.LENGTH_SHORT);
 
     public static void show(String text) {
-        show(text, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(AppApplication.getContext(), text, Toast.LENGTH_SHORT);
+        show(toast, text, Toast.LENGTH_LONG);
     }
 
     public static void show(int textRes) {
-        show(textRes, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(AppApplication.getContext(), textRes, Toast.LENGTH_SHORT);
+        show(toast, textRes, Toast.LENGTH_SHORT);
     }
 
     /**
      * @param text 显示内容
      * @param t    显示时间
      */
-    public static void show(String text, int t) {
+    public static void show(Toast toast, String text, int t) {
         //toast.cancel();
         toast.setDuration(t);
         toast.setText(text);
         toast.show();
     }
 
-    public static void show(int textRes, int t) {
+    public static void show(Toast toast, int textRes, int t) {
         // toast.cancel();
         toast.setDuration(t);
         toast.setText(textRes);

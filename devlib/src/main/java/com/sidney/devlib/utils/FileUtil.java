@@ -199,6 +199,10 @@ public class FileUtil {
         bos.close();
     }
 
+    /**
+     * 删除文件
+     * @param file
+     */
     public void deleteFile(String file) {
         File f = new File(file);
         if (!f.isDirectory()) {
@@ -206,6 +210,10 @@ public class FileUtil {
         }
     }
 
+    /**
+     * 删除指定文件
+     * @param file
+     */
     public void deleteDir(String file) {
         File f = new File(file);
         if (f.isDirectory()) {
@@ -223,4 +231,20 @@ public class FileUtil {
             deleteFile(f.getAbsolutePath());
         }
     }
+
+    /**
+     * 获取文件名及后缀
+     */
+    public String getFileNameWithSuffix(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return "";
+        }
+        int start = path.lastIndexOf("/");
+        if (start != -1) {
+            return path.substring(start + 1);
+        } else {
+            return "";
+        }
+    }
+
 }
