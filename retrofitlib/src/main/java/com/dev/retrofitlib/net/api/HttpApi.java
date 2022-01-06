@@ -57,15 +57,15 @@ import rx.schedulers.Schedulers;
  * 网络操作入口
  */
 public class HttpApi {
-    private Context context;
-    private ApiService apiService;
-    private Retrofit retrofit;
-    private Retrofit.Builder retrofitBuilder;
-    private OkHttpClient okHttpClient;
-    private OkHttpClient.Builder okHttpBuilder;
-    private ApiCache apiCache;
-    private ApiCache.Builder apiCacheBuilder;
-    private CacheMode cacheMode = CacheMode.ONLY_REMOTE;
+    private static Context context;
+    private static ApiService apiService;
+    private static Retrofit retrofit;
+    private static Retrofit.Builder retrofitBuilder;
+    private static OkHttpClient okHttpClient;
+    private static OkHttpClient.Builder okHttpBuilder;
+    private static ApiCache apiCache;
+    private static ApiCache.Builder apiCacheBuilder;
+    private static CacheMode cacheMode = CacheMode.ONLY_REMOTE;
 
     private HttpApi() {
     }
